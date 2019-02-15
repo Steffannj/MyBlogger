@@ -4,7 +4,11 @@
     <li repeat.for="account of listOfAccounts">
       <p> ID:${account.accountId} TYPE: ${account.accountType.toString()} USERNAME: ${account.username}
         PASSWORD: ${account.password} POSTS:
-    <li repeat.for="post of account.blogPosts">${post}</li>
+    <ul repeat.for="post of account.blogPosts">
+      <button>showPosts</button>
+      <li><compose view="../postView/postView.html"></compose></li>
+
+    </li>
     </p>
     </li>
   </ul>

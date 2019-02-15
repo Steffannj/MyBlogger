@@ -32,12 +32,6 @@ export class UserProfile {
     }
   }
 
-  addPost(title: string, body: string, visibility: PostVisibility){
-    let post = new Post(title, body, this.currentUser.username, visibility);
-    this.postRepository.addPost(post);
-    this.currentUser.addPost(post);
-  }
-
   deletePost(post: Post){
     this.currentUser.removePost(post.postId);
     this.postRepository.deletePost(post.postId);
@@ -45,7 +39,7 @@ export class UserProfile {
 
   searchPost(search){
     this.isInSearchMode = true;
-    this.queriedPosts = this.postRepository.getPostByAuthor(this.currentUser.username).filter(post => post.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) || [];
+    this.queriedPosts = this.postRepository.getPostByAuthor(this.currentUser.username).filter(post => post.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
     this.searchResults = search;
     this.search = "";
   }

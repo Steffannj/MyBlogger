@@ -2,7 +2,7 @@
   <require from="../addPostModal/addPostModal"></require>
   <require from="resources/value-converters/date-format"></require>
   <div class="container">
-    <compose view-model="../addPostModal/addPostModal"></compose>
+    <compose view-model="../addPostModal/addPostModal" view="../addPostModal/addPostModal.html"></compose>
     <div class="row">
       <div class="text-center">
         <h2>Your Posts</h2>
@@ -18,10 +18,10 @@
           </div>
         </div>
       </div>
-      <div show.bind="searchResults">
-        <h4>Results for "${searchResults}":</h4>
-      </div>
       <div if.bind="isInSearchMode">
+        <div show.bind="searchResults">
+          <h4>Results for "${searchResults}":</h4>
+        </div>
         <div class="col-sm-8" show.bind="queriedPosts.length == 0">
           No posts to show.
         </div>

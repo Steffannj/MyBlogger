@@ -12,11 +12,11 @@
         <div class="modal-body">
           <div>
             <label>Title</label>
-            <input type="text" value.bind="title & validate">
+            <input type="text" value.bind="title & validateOnChange">
           </div>
           <div>
             <label>Body</label>
-            <textarea type="text" rows="20" cols="50" value.bind="body & validate"></textarea>
+            <textarea type="text" rows="20" cols="50" value.bind="body & validateOnChange"></textarea>
           </div>
           <form>
             <label repeat.for="vo of visibilityOptions">
@@ -36,7 +36,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" click.delegate="addPost(title, body, visibility)" data-dismiss="modal"
-            disabled.bind="vc.errors.length > 0">Save changes</button>
+            disabled.bind="vc.errors.length > 0 || !title">Save changes</button>
         </div>
       </div>
     </div>

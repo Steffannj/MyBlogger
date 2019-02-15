@@ -5,17 +5,12 @@ import { inject } from 'aurelia-framework';
 
 @inject(AccountRepository)
 export class PostRepository{
-  
   private posts: Array<Post>;
   accountRepository: AccountRepository;
 
   constructor(accountRepository: AccountRepository){
     this.accountRepository = accountRepository;
-    this.posts = [
-      new Post("Title", "Body of post", this.accountRepository.accounts[1].username, PostVisibility.Public),
-      new Post("Title2", "Body of post2", this.accountRepository.accounts[0].username, PostVisibility.Public),
-      new Post("Private", "Body of private post", this.accountRepository.accounts[1].username, PostVisibility.Private)
-    ];
+    this.posts = [];
   }
   
   getPostByAuthor(author: string): Array<Post>{
@@ -46,6 +41,13 @@ export class PostRepository{
         this.posts.splice(index, 1);
       }
     });
+  }
+
+  changePost(changedPost: Post){
+    let post = this.posts.find(post => post.postId == changedPost.postId);
+    post.title = changedPost.title;
+    post.body = changedPost.body;
+    post.visibility = changedPost.visibility;
   }
 
 }
