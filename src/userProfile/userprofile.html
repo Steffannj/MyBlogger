@@ -7,21 +7,6 @@
       <div class="text-center">
         <h2>Your Posts</h2>
       </div>
-      <div show.bind="searchResults">
-        <h4>Results for "${searchResults}":</h4>
-      </div>
-      <div class="col-sm-8" if.bind="posts.length < 1">
-        No posts to show.
-      </div>
-      <div class="col-sm-8" repeat.for="post of posts">
-        <compose view="../postView/postView.html"></compose>
-        <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
-        <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}">Edit Post</button>
-        <compose view="../editPostModal/editPostModal.html"></compose>
-      </div>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#addNewPost">
-        Add New Post
-      </button>
       <div class="card my-4">
         <h5 class="card-header">Search</h5>
         <div class="card-body">
@@ -33,6 +18,30 @@
           </div>
         </div>
       </div>
+      <div show.bind="searchResults">
+        <h4>Results for "${searchResults}":</h4>
+      </div>
+      <div if.bind="isInSearchMode">
+        <div class="col-sm-8" show.bind="queriedPosts.length == 0">
+          No posts to show.
+        </div>
+        <div class="col-sm-8" repeat.for="post of queriedPosts">
+          <compose view="../postView/postView.html"></compose>
+          <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
+          <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}">Edit Post</button>
+          <compose view-model="../editPostModal/editPostModal"></compose>
+        </div>
+        <button click.delegate="cancelSearch()">Cancel search</button>
+      </div>
+      <div if.bind="!isInSearchMode" class="col-sm-8" repeat.for="post of currentUser.blogPosts">
+        <compose view="../postView/postView.html"></compose>
+        <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}">Edit Post</button>
+        <compose view-model="../editPostModal/editPostModal"></compose>
+      </div>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#addNewPost">
+        Add New Post
+      </button>
     </div>
   </div>
   </div>

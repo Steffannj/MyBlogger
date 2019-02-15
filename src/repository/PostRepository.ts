@@ -26,7 +26,7 @@ export class PostRepository{
   getPosts(accountType: AccountType): Array<Post>{
     let publicPosts: Array<Post>;
     if(accountType == AccountType.User){
-      publicPosts = this.posts.filter(post => post.isPublic == PostVisibility.Public);
+      publicPosts = this.posts.filter(post => post.visibility == PostVisibility.Public);
       return publicPosts;
     }
     return this.getAllPosts();  

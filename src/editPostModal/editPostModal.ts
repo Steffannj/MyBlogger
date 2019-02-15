@@ -1,20 +1,19 @@
-import { Post } from './../models/Post';
-import { inject } from "aurelia-framework";
+import { Post, PostVisibility } from '../models/Post';
+import { inject, bindable } from "aurelia-framework";
 import { ValidationRules, ValidationControllerFactory, ValidationController } from 'aurelia-validation';
+import { post } from 'selenium-webdriver/http';
 
 @inject(ValidationControllerFactory)
 export class EditPostModal{
-  title: string;
-  body: string;
   vcf: ValidationControllerFactory;
   vc: ValidationController;
-  post: Post;
+  visibilityOptions = [PostVisibility.Public, PostVisibility.Private];
 
   constructor(vcf: ValidationControllerFactory){
     this.vc = vcf.createForCurrentScope();
     this.vcf = vcf;
   }
-  
+
 }
 ValidationRules
 .ensure("title")
@@ -25,3 +24,4 @@ ValidationRules
 .required()
 .minLength(20)
 .on(EditPostModal);
+;

@@ -1,3 +1,4 @@
+import { PostVisibility } from './../models/Post';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { inject } from "aurelia-framework";
 import { ValidationRules, ValidationControllerFactory, ValidationController } from 'aurelia-validation';
@@ -6,25 +7,18 @@ import { ValidationRules, ValidationControllerFactory, ValidationController } fr
 export class AddPostModal {
   title: string;
   body: string;
+  visibility: PostVisibility = PostVisibility.Public;
   vcf: ValidationControllerFactory;
   vc: ValidationController;
-  canSave: boolean;
+  canSave: boolean = false;
   ea: EventAggregator;
+  visibilityOptions = [PostVisibility.Public, PostVisibility.Private];
 
   constructor(vcf: ValidationControllerFactory, ea: EventAggregator) {
     this.vc = vcf.createForCurrentScope();
     this.vcf = vcf;
     this.ea = ea;
-    this.ea.subscribe("addPostValidation", res => this.canSave = res);
   }
-
-  addPostValidation(){
-    if(this.title.length < 3 || this.body.length < 20)
-      this.ea.publish("addPostValidation", false);
-    else
-      this.ea.publish("addPostValidation", true);
-  }
-  
 }
 ValidationRules
   .ensure("title")

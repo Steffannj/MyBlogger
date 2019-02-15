@@ -12,19 +12,19 @@
         <div class="modal-body">
           <div>
             <label>Title</label>
-            <input type="text" onkeyup="addPostValidation()" value.bind="title & validate & ">
+            <input type="text" value.bind="title & validate">
           </div>
           <div>
             <label>Body</label>
-            <textarea type="text" onkeyup="addPostValidation()" rows="20" cols="50" value.bind="body & validate"></textarea>
+            <textarea type="text" rows="20" cols="50" value.bind="body & validate"></textarea>
           </div>
-          <div>
-            <input type="radio" class="custom-control-input" name="visibility" checked.bind="PostVisibility.Public">
-            <label>Public</label>
-          </div>
-          <div>
-            <input type="radio" class="custom-control-input" name="visibility" checked.bind="PostVisibility.Private">
-            <label>Private</label> </div>
+          <form>
+            <label repeat.for="vo of visibilityOptions">
+              <input type="radio" class="custom-control-input" model.bind="vo" name="visibility" checked.bind="visibility">
+              ${vo}
+              <br />
+            </label>
+          </form>
         </div>
         
         <ul if.bind="vc.errors.length > 0">
@@ -35,8 +35,8 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" click.delegate="addPost(title, body)" data-dismiss="modal"
-            disabled.bind="!canSave">Save changes</button>
+          <button type="button" class="btn btn-primary" click.delegate="addPost(title, body, visibility)" data-dismiss="modal"
+            disabled.bind="vc.errors.length > 0">Save changes</button>
         </div>
       </div>
     </div>

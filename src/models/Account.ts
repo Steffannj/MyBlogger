@@ -13,6 +13,7 @@ export class Account{
     this.username = username;
     this.password = password;
     this.accountType = accountType;
+    this.blogPosts = [];
   }
 
   addPost(post: Post){

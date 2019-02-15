@@ -12,20 +12,19 @@
         <div class="modal-body">
           <div>
             <label>Title</label>
-            <input type="text" ref="title" value.to-view="post.title">
+            <input type="text" ref="title" value.two-way="post.title">
           </div>
           <div>
             <label>Body</label>
-            <textarea type="text" rows="20" cols="50" ref="body" value.to-view="post.body"></textarea>
+            <textarea type="text" rows="20" cols="50" ref="body" value.two-way="post.body"></textarea>
           </div>
-          <div>
-            <input type="radio" class="custom-control-input" name="visibility" checked.bind="PostVisibility.Public">
-            <label>Public</label>
-          </div>
-          <div>
-            <input type="radio" class="custom-control-input" name="visibility" checked.bind="PostVisibility.Private">
-            <label>Private</label>
-          </div>
+          <form>
+            <label repeat.for="vo of visibilityOptions">
+              <input type="radio" class="custom-control-input" model.bind="vo" name="visibility" checked.bind="post.visibility">
+              ${vo}
+              <br />
+            </label>
+          </form>
         </div>
         <ul if.bind="vc.errors.length > 0 ">
           <li repeat.for="error of vc.errors">
@@ -34,7 +33,7 @@
         </ul>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" click.delegate="editPost(post, title.value, body.value)"
+          <button type="button" class="btn btn-primary" click.delegate="editPost(post)"
             data-dismiss="modal">Save changes</button>
         </div>
       </div>

@@ -4,14 +4,14 @@ export class Post{
   title: string;
   body: string;
   author: string;
-  isPublic: PostVisibility;
+  visibility: PostVisibility;
   time: Date;
 
-  constructor(title, body, author, isPublic){
+  constructor(title, body, author, visibility){
     this.title = title;
     this.body = body;
     this.author = author;
-    this.isPublic = isPublic;
+    this.visibility = visibility;
     this.time = new Date();
     this.postId = Post.postCounter++;
   }
