@@ -1,0 +1,43 @@
+<template>
+  <div class="modal fade" id="addNewPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Post</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <label>Title</label>
+            <input type="text" onkeyup="addPostValidation()" value.bind="title & validate & ">
+          </div>
+          <div>
+            <label>Body</label>
+            <textarea type="text" onkeyup="addPostValidation()" rows="20" cols="50" value.bind="body & validate"></textarea>
+          </div>
+          <div>
+            <input type="radio" class="custom-control-input" name="visibility" checked.bind="PostVisibility.Public">
+            <label>Public</label>
+          </div>
+          <div>
+            <input type="radio" class="custom-control-input" name="visibility" checked.bind="PostVisibility.Private">
+            <label>Private</label> </div>
+        </div>
+        
+        <ul if.bind="vc.errors.length > 0">
+          <li repeat.for="error of vc.errors">
+            ${error}
+          </li>
+        </ul>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" click.delegate="addPost(title, body)" data-dismiss="modal"
+            disabled.bind="!canSave">Save changes</button>
+        </div>
+      </div>
+    </div>
+</template>

@@ -1,0 +1,24 @@
+<template>
+  <form submit.delegate="login()">
+    <div class="blog-header">
+      <h2 class="text-center">Log In</h2>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" value.bind="username" placeholder="Username" required="required">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" value.bind="password" placeholder="Password" required="required">
+    </div>
+    <ul>
+      <li show.bind="error">
+        ${error}
+      </li>
+    </ul>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block">Log In</button>
+    </div>
+    <div class="text-center">
+      <a route-href="route: signup">I don't have an account</a>
+    </div>
+  </form>
+</template>

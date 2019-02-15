@@ -1,0 +1,15 @@
+<template>
+    <require from="resources/value-converters/date-format"></require>
+    <h1 class="mt-4">${post.title}</h1>
+    <p class="lead">
+      by
+      <a href="#">${post.author}</a>
+    </p>
+    <hr>
+    <p>Posted on ${post.time | dateFormat} </p>
+    <hr>
+
+    <p class="lead">${post.body} <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero,
+      obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni
+      recusandae laborum minus inventore?</p>
+</template>

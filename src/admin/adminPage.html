@@ -1,0 +1,11 @@
+<template>
+  <h3>List of all accounts:</h3>
+  <ul>
+    <li repeat.for="account of listOfAccounts">
+      <p> ID:${account.accountId} TYPE: ${account.accountType.toString()} USERNAME: ${account.username}
+        PASSWORD: ${account.password} POSTS:
+    <li repeat.for="post of account.blogPosts">${post}</li>
+    </p>
+    </li>
+  </ul>
+</template>

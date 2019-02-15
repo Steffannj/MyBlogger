@@ -1,0 +1,31 @@
+<template>
+  <require from="resources/value-converters/date-format"></require>
+  <div class="container">
+    <div class="row">
+      <div class="text-center">
+        <h2>All Posts</h2>
+      </div>
+      <div show.bind="searchResults">
+        <h4>Results for "${searchResults}":</h4>
+      </div>
+      <div class="col-sm-8" if.bind="posts.length < 1">
+        No posts to show.
+      </div>
+      <div class="col-sm-8" repeat.for="post of posts">
+        <compose view="../postView/postView.html"></compose>
+      </div>
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for..." value.bind="search">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button" click.delegate="searchPost(search)">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</template>
