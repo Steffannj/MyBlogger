@@ -2,7 +2,7 @@
   <require from="../addPostModal/addPostModal"></require>
   <require from="resources/value-converters/date-format"></require>
   <div class="container">
-    <compose view-model="../addPostModal/addPostModal" view="../addPostModal/addPostModal.html"></compose>
+    <compose view-model="../addPostModal/addPostModal"></compose>
     <div class="row">
       <div class="text-center">
         <h2>Your Posts</h2>
@@ -13,7 +13,11 @@
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for..." value.bind="search">
             <span class="input-group-btn">
-              <button type="button" class="btn btn-secondary" type="button" click.delegate="searchPost(search)">Go!</button>
+              <button type="button" class="btn btn-secondary" disabled.bind="!search"
+                click.delegate="searchPost(search)">Go!</button>
+            </span>
+            <span class="input-group-btn" if.bind="isInSearchMode">
+              <button type="button" class="btn btn-danger" click.delegate="cancelSearch()">Cancel search</button>
             </span>
           </div>
         </div>
@@ -28,16 +32,16 @@
         <div class="col-sm-8" repeat.for="post of queriedPosts">
           <compose view="../postView/postView.html"></compose>
           <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
-          <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}">Edit Post</button>
-          <compose view-model="../editPostModal/editPostModal"></compose>
+          <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}"
+            click.delegate="publishPost(post)">Edit Post</button>
         </div>
-        <button click.delegate="cancelSearch()">Cancel search</button>
       </div>
       <div if.bind="!isInSearchMode" class="col-sm-8" repeat.for="post of currentUser.blogPosts">
         <compose view="../postView/postView.html"></compose>
-        <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
-        <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}">Edit Post</button>
         <compose view-model="../editPostModal/editPostModal"></compose>
+        <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}"
+          click.delegate="publishPost(post)">Edit Post</button>
       </div>
       <button class="btn btn-primary" data-toggle="modal" data-target="#addNewPost">
         Add New Post

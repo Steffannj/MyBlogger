@@ -43,11 +43,11 @@ export class PostRepository{
     });
   }
 
-  changePost(changedPost: Post){
-    let post = this.posts.find(post => post.postId == changedPost.postId);
-    post.title = changedPost.title;
-    post.body = changedPost.body;
-    post.visibility = changedPost.visibility;
+  savePostEditing(postId, title, body, visibility){
+    let index = this.posts.findIndex(post => post.postId == postId);
+    this.posts[index].title = title;
+    this.posts[index].body = body;
+    this.posts[index].visibility = visibility;
   }
 
 }

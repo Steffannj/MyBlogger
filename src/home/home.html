@@ -5,26 +5,57 @@
       <div class="text-center">
         <h2>All Posts</h2>
       </div>
-      <div show.bind="searchResults">
-        <h4>Results for "${searchResults}":</h4>
-      </div>
-      <div class="col-sm-8" if.bind="posts.length < 1">
-        No posts to show.
-      </div>
-      <div class="col-sm-8" repeat.for="post of posts">
-        <compose view="../postView/postView.html"></compose>
-      </div>
-        <div class="card my-4">
-          <h5 class="card-header">Search</h5>
-          <div class="card-body">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for..." value.bind="search">
-              <span class="input-group-btn">
-                <button class="btn btn-secondary" type="button" click.delegate="searchPost(search)">Go!</button>
-              </span>
-            </div>
+      <form>
+        <h3>Search By: </h3>
+        <label repeat.for="option of searchBy">
+          <input type="radio" class="custom-control-input" model.bind="option" checked.bind="searchOption">
+          ${option}
+        </label>
+      </form>
+      <div class="card my-4" if.bind="searchOption == 'post'">
+        <h5 class="card-header">Search</h5>
+        <div class="card-body">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by title" value.bind="search">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-secondary" disabled.bind="!search"
+                click.delegate="searchPostByTitle(search)">Go!</button>
+            </span>
+            <span class="input-group-btn" if.bind="isInSearchMode">
+              <button type="button" class="btn btn-danger" click.delegate="cancelSearch()">Cancel search</button>
+            </span>
           </div>
         </div>
+      </div>
+      <div class="card my-4" if.bind="searchOption == 'author'">
+        <h5 class="card-header">Search</h5>
+        <div class="card-body">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by author" value.bind="search">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-secondary" disabled.bind="!search"
+                click.delegate="searchPostByAuthor(search)">Go!</button>
+            </span>
+            <span class="input-group-btn" if.bind="isInSearchMode">
+              <button type="button" class="btn btn-danger" click.delegate="cancelSearch()">Cancel search</button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div if.bind="isInSearchMode">
+        <div show.bind="searchResults">
+          <h4>Results for "${searchResults}":</h4>
+        </div>
+        <div class="col-sm-8" if.bind="posts.length < 1">
+          No posts to show.
+        </div>
+        <div class="col-sm-8" repeat.for="post of queriedPosts">
+          <compose view="../postView/postView.html"></compose>
+        </div>
+      </div>
+      <div if.bind="!isInSearchMode" class="col-sm-8" repeat.for="post of posts">
+        <compose view="../postView/postView.html"></compose>
+      </div>
     </div>
   </div>
 

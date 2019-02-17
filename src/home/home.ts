@@ -14,8 +14,14 @@ export class Home {
   pr: PostRepository;
   pu: PropagateUser;
   router: Router;
+  searchByTitle: string;
+  searchByAuthor: string;
+  searchResults: string;
+  queriedPosts: Array<Post> = [];
+  isInSearchMode: boolean = false;
+  searchBy = ["title", "author"];
+  searchOption = "title";
   search: string;
-  searchResults:string;
 
   constructor(pu: PropagateUser, pr: PostRepository, ea: EventAggregator, router: Router) {
     this.pr = pr;
@@ -32,12 +38,23 @@ export class Home {
     this.posts = this.pr.getPosts(this.currentUser.accountType);
   }
 
-  searchPost(search: string) {
-    this.posts = this.pr.getPosts(this.currentUser.accountType).filter(post =>
-      post.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-      post.author.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
-      this.searchResults = search;
-      console.log(this.posts);
-      this.search = "";
+  searchPostByTitle(search: string) {
+    this.isInSearchMode = true;
+    this.queriedPosts = this.pr.getPosts(this.currentUser.accountType).filter(post =>
+      post.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+    this.searchResults = search;
   }
+  searchPostByAuthor(search: string) {
+    this.isInSearchMode = true;
+    this.queriedPosts = this.pr.getPosts(this.currentUser.accountType).filter(post =>
+      post.author.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+    this.searchResults = search;
+  }
+
+  cancelSearch() {
+    this.isInSearchMode = false;
+    this.queriedPosts = [];
+    this.search = "";
+  }
+
 }

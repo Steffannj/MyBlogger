@@ -48,6 +48,11 @@ export class UserProfile {
     this.isInSearchMode = false;
     this.queriedPosts = [];
   }
+
+  publishPost(post: Post){
+    this.ea.publish("post", post);
+  }
+
 }
 
 

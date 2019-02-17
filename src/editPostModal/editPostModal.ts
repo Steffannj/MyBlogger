@@ -1,25 +1,38 @@
+import { PostVisibility } from './../models/Post';
+import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostRepository } from './../repository/PostRepository';
-import { Post, PostVisibility } from '../models/Post';
-import { inject, bindable } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 import { ValidationRules, ValidationControllerFactory, ValidationController } from 'aurelia-validation';
 
-@inject(ValidationControllerFactory, PostRepository)
+@inject(ValidationControllerFactory, PostRepository, EventAggregator)
 export class EditPostModal{
   title: string;
   body: string;
+  visibility: PostVisibility;
   vcf: ValidationControllerFactory;
   vc: ValidationController;
   visibilityOptions = [PostVisibility.Public, PostVisibility.Private];
   pr: PostRepository;
+  ea: EventAggregator;
 
-  constructor(vcf: ValidationControllerFactory, pr: PostRepository){
+  constructor(vcf: ValidationControllerFactory, pr: PostRepository, ea: EventAggregator){
     this.vc = vcf.createForCurrentScope();
     this.vcf = vcf;
     this.pr = pr;
+    this.ea = ea;
   }
 
-  editPost(post: Post){
-    this.pr.changePost(post);
+  attached() {
+    this.ea.subscribe("post", post =>{
+      this.title = post.title;
+      this.body = post.body;
+      this.visibility = post.visibility;
+      console.log(this.visibility);
+    });
+  }
+
+  editPost(postId){
+    this.pr.savePostEditing(postId, this.title, this.body, this.visibility);
   }
 
   
@@ -32,5 +45,6 @@ ValidationRules
 .ensure("body")
 .required()
 .minLength(20)
+.ensure("validation")
+.required()
 .on(EditPostModal);
-;

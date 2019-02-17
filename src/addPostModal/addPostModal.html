@@ -20,9 +20,8 @@
           </div>
           <form>
             <label repeat.for="vo of visibilityOptions">
-              <input type="radio" class="custom-control-input" model.bind="vo" name="visibility" checked.bind="visibility">
+              <input type="radio" class="custom-control-input" model.bind="vo" checked.bind="visibility">
               ${vo}
-              <br />
             </label>
           </form>
         </div>
@@ -36,7 +35,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" click.delegate="addPost(title, body, visibility)" data-dismiss="modal"
-            disabled.bind="vc.errors.length > 0 || !title">Save changes</button>
+            disabled.bind="vc.errors.length > 0 || !title || !body">Save changes</button>
         </div>
       </div>
     </div>
