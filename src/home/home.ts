@@ -19,7 +19,7 @@ export class Home {
   searchResults: string;
   queriedPosts: Array<Post> = [];
   isInSearchMode: boolean = false;
-  searchBy = ["title", "author"];
+  searchOptions = ["title", "author"];
   searchOption = "title";
   search: string;
 
@@ -44,6 +44,7 @@ export class Home {
       post.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
     this.searchResults = search;
   }
+
   searchPostByAuthor(search: string) {
     this.isInSearchMode = true;
     this.queriedPosts = this.pr.getPosts(this.currentUser.accountType).filter(post =>

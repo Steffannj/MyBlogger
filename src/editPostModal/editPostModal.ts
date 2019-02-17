@@ -8,7 +8,7 @@ import { ValidationRules, ValidationControllerFactory, ValidationController } fr
 export class EditPostModal{
   title: string;
   body: string;
-  visibility: PostVisibility;
+  visibility: PostVisibility = PostVisibility.Private;
   vcf: ValidationControllerFactory;
   vc: ValidationController;
   visibilityOptions = [PostVisibility.Public, PostVisibility.Private];
@@ -27,7 +27,6 @@ export class EditPostModal{
       this.title = post.title;
       this.body = post.body;
       this.visibility = post.visibility;
-      console.log(this.visibility);
     });
   }
 
@@ -35,7 +34,6 @@ export class EditPostModal{
     this.pr.savePostEditing(postId, this.title, this.body, this.visibility);
   }
 
-  
 }
 ValidationRules
 .ensure("title")
@@ -45,6 +43,4 @@ ValidationRules
 .ensure("body")
 .required()
 .minLength(20)
-.ensure("validation")
-.required()
 .on(EditPostModal);

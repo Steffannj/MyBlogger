@@ -7,12 +7,12 @@
       </div>
       <form>
         <h3>Search By: </h3>
-        <label repeat.for="option of searchBy">
+        <label repeat.for="option of searchOptions">
           <input type="radio" class="custom-control-input" model.bind="option" checked.bind="searchOption">
           ${option}
         </label>
       </form>
-      <div class="card my-4" if.bind="searchOption == 'post'">
+      <div class="card my-4" if.bind="searchOption == 'title'">
         <h5 class="card-header">Search</h5>
         <div class="card-body">
           <div class="input-group">

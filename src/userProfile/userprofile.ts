@@ -1,5 +1,5 @@
 import { Account } from './../models/Account';
-import { Post, PostVisibility } from './../models/Post';
+import { Post } from './../models/Post';
 import { PostRepository } from './../repository/PostRepository';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { inject } from "aurelia-framework";
