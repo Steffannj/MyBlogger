@@ -14,7 +14,7 @@ export class UserProfile {
   pu: PropagateUser;
   router: Router;
   search: string;
-  searchResults:string;
+  searchResults: string;
   queriedPosts: Array<Post> = [];
   isInSearchMode: boolean = false;
 
@@ -27,29 +27,29 @@ export class UserProfile {
 
   attached() {
     this.currentUser = this.pu.getCurrentUser();
-    if(!this.currentUser){
+    if (!this.currentUser) {
       this.router.navigateToRoute("login");
     }
   }
 
-  deletePost(post: Post){
+  deletePost(post: Post) {
     this.currentUser.removePost(post.postId);
     this.postRepository.deletePost(post.postId);
   }
 
-  searchPost(search){
+  searchPost(search) {
     this.isInSearchMode = true;
     this.queriedPosts = this.postRepository.getPostByAuthor(this.currentUser.username).filter(post => post.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
     this.searchResults = search;
     this.search = "";
   }
 
-  cancelSearch(){
+  cancelSearch() {
     this.isInSearchMode = false;
     this.queriedPosts = [];
   }
 
-  publishPost(post: Post){
+  publishPost(post: Post) {
     this.ea.publish("post", post);
   }
 

@@ -1,5 +1,5 @@
-export class Post{
-  static postCounter = 0;
+export class Post {
+  static postCounter: number = 1;
   postId: number;
   title: string;
   body: string;
@@ -7,7 +7,7 @@ export class Post{
   visibility: PostVisibility;
   time: Date;
 
-  constructor(title, body, author, visibility){
+  constructor(title, body, author, visibility) {
     this.title = title;
     this.body = body;
     this.author = author;

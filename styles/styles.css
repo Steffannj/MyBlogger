@@ -173,3 +173,7 @@ div.au-stagger {
     opacity: 1;
   }
 }
+.scrollable {
+  height:450px;
+  overflow-y: scroll;
+}

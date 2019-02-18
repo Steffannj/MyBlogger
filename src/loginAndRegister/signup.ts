@@ -24,15 +24,9 @@ export class Signup {
     this.checkRegister = checkRegister;
   }
 
-  signup(username) {
-    try {
-      if (this.checkRegister.isUsernameAvailable(username)) {
+  signup() {
         this.accountRepository.addAccount(this.username, this.password, AccountType.User);
         this.router.navigateToRoute("login");
-      }
-    } catch (err) {
-      this.error = err;
-    }
   }
 }
 

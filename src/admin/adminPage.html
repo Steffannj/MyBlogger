@@ -1,5 +1,7 @@
 <template>
+  <require from="../addAccountModal/addAccountModal"></require>
   <div class="container">
+    <compose view-model="../addAccountModal/addAccountModal"></compose>
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group">
@@ -12,78 +14,83 @@
           </select>
         </div>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-4">
         <div class="row panel panel-success" style="margin-top:2%;">
           <div class="panel-heading lead">
             <div class="row">
-              <div class="col-lg-8 col-md-8 text-center"> View Account Details</div>
+              <div class="text-center">Account Details</div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <div class="row">
-                <div class="col-lg-3 col-md-3">
-                </div>
-                <div class="col-lg-9 col-md-9">
-                  <div class="tab-content">
-                    <div class="table-responsive panel">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <td class="text-success">ID</td>
-                            <td>${selectedAccount.accountId}</td>
-                          </tr>
-                          <tr>
-                            <td class="text-success">Account Type</td>
-                            <td>${selectedAccount.accountType}</td>
-                          </tr>
-                          <tr>
-                            <td class="text-success">Username</td>
-                            <td>${selectedAccount.username}</td>
-                          </tr>
-                          <tr>
-                            <td class="text-success">Password</td>
-                            <td>${selectedAccount.password}</td>
-                          </tr>
-                          <tr>
-                            <td class="text-success">Number Of Posts</td>
-                            <td>${selectedAccount.blogPosts.length}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
 
-                  <div class="table-responsive panel" show.bind="selectedAccount.accountType == 'User'">
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <td class="text-center">
-                            <button class="btn btn-danger btn-block"
-                              click.delegate="deleteAccount(selectedAccount.accountId)">Delete Account</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+          <div class="tab-content">
+            <div class="table-responsive panel">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="text-success">ID</td>
+                    <td>${selectedAccount.accountId}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-success">Account Type</td>
+                    <td>${selectedAccount.accountType}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-success">Username</td>
+                    <td>${selectedAccount.username}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-success">Password</td>
+                    <td>${selectedAccount.password}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-success">Number Of Posts</td>
+                    <td>${selectedAccount.blogPosts.length}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="row">
-        <div repeat.for="post of selectedAccount.blogPosts">
-          <div class="col-sm-4">
-            <compose view="../postView/postView.html"></compose>
-            <compose view-model="../editPostModal/editPostModal"></compose>
-            <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}"
-              click.delegate="publishPost(post)">Edit Post</button>
+          <div class="table-responsive panel" show.bind="selectedAccount.accountType == 'User'">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="text-center">
+                    <button class="btn btn-danger btn-block"
+                      click.delegate="deleteAccount(selectedAccount.accountId)">Delete Account</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+
         </div>
       </div>
+      <div class="col-sm-4">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addAccount">
+          Add New Account
+        </button>
+      </div>
+    </div>
+    <div class="row" show.bind="selectedAccount.blogPosts.length > 0">
+      <hr>
+      <div class="text-center">
+        <h3>Posts by ${selectedAccount.username}</h3>
+      </div>
+      <div repeat.for="post of selectedAccount.blogPosts">
+        <div class="col-sm-4 scrollable">
+          <compose view="../postView/postView.html"></compose>
+          <compose view-model="../editPostModal/editPostModal"></compose>
+          <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
+          <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}"
+            click.delegate="publishPost(post)">Edit Post</button>
+        </div>
+      </div>
+    </div>
+    <div class="row text-center"
+      show.bind="selectedAccount.blogPosts.length == 0 && selectedAccount.accountType == 'User'">
+      <hr>
+      <h3>${selectedAccount.username} not posted yet.</h3>
     </div>
   </div>
 </template>

@@ -12,10 +12,9 @@ export class CheckRegister {
   isUsernameAvailable(username: string): boolean {
     let account = this.ar.accounts.find(acc => acc.username == username);
     if (account) {
-      throw "Username taken"
+      return false;
     } else {
       return true;
     }
   }
-
 }
