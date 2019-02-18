@@ -11,8 +11,12 @@
 
     <div class="collapse navbar-collapse" id="navigation-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li if.bind="currentUser">
+        <li if.bind="currentUser.accountType == 'User'">
           <a route-href="route: userprofile" data-toggle="collapse"
+            data-target="#navigation-navbar-collapse-1.in">Welcome, ${currentUser.username}</a>
+        </li>
+        <li if.bind="currentUser.accountType == 'Admin'">
+          <a route-href="route: adminpage" data-toggle="collapse"
             data-target="#navigation-navbar-collapse-1.in">Welcome, ${currentUser.username}</a>
         </li>
         <li if.bind="!currentUser">

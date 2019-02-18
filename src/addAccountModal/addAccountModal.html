@@ -1,0 +1,46 @@
+<template>
+    <div class="modal fade" id="addAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add New Account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <label>Username</label>
+              <input type="text" value.bind="username & validateOnChange">
+            </div>
+            <div>
+              <label>Password</label>
+              <input type="text" rows="20" cols="50" value.bind="password & validateOnChange"></input>
+            </div>
+            <form>
+              <label repeat.for="type of accountTypes">
+                <input type="radio" class="custom-control-input" model.bind="type" checked.bind="accountType">
+                ${type}
+              </label>
+            </form>
+          </div>
+          
+          <ul if.bind="vc.errors.length > 0">
+            <li repeat.for="error of vc.errors">
+              ${error}
+            </li>
+          </ul>
+          <div show.bind="err">
+            ${err}
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" click.delegate="addAccount()" data-dismiss="modal"
+              disabled.bind="vc.errors.length > 0 || !username || !password">Add account</button>
+          </div>
+        </div>
+      </div>
+  </template>
+  

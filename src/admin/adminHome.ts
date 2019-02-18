@@ -41,16 +41,16 @@ export class AdminHome {
     this.posts = this.pr.getPosts(this.currentUser.accountType);
   }
 
-  deletePost(post: Post){
+  deletePost(post: Post) {
     let account = this.ar.getAccount(post.author);
     account.removePost(post.postId);
     this.pr.deletePost(post.postId);
   }
 
-  publishPost(post: Post){
+  publishPost(post: Post) {
     this.ea.publish("post", post);
   }
-
+  
   searchPostByTitle(search: string) {
     this.isInSearchMode = true;
     this.queriedPosts = this.pr.getPosts(this.currentUser.accountType).filter(post =>
