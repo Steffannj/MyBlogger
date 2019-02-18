@@ -2,59 +2,72 @@
   <require from="resources/value-converters/date-format"></require>
   <div class="container">
     <div class="row">
-      <div class="text-center">
+      <div class="col-sm-8 text-center">
         <h2>All Posts</h2>
       </div>
-      <form>
-        <h3>Search By: </h3>
-        <label repeat.for="option of searchOptions">
-          <input type="radio" class="custom-control-input" model.bind="option" checked.bind="searchOption">
-          ${option}
-        </label>
-      </form>
-      <div class="card my-4" if.bind="searchOption == 'title'">
-        <h5 class="card-header">Search</h5>
-        <div class="card-body">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search by title" value.bind="search">
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-secondary" disabled.bind="!search"
-                click.delegate="searchPostByTitle(search)">Go!</button>
-            </span>
-            <span class="input-group-btn" if.bind="isInSearchMode">
-              <button type="button" class="btn btn-danger" click.delegate="cancelSearch()">Cancel search</button>
-            </span>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-push-8">
+        <form>
+          <h3>Search By: </h3>
+          <label repeat.for="option of searchOptions">
+            <input type="radio" class="custom-control-input" model.bind="option" checked.bind="searchOption">
+            ${option}
+          </label>
+        </form>
+        <div class="card my-4" if.bind="searchOption == 'title'">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search by title" value.bind="search">
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-secondary" disabled.bind="!search"
+                  click.delegate="searchPostByTitle(search)">Go!</button>
+              </span>
+              <span class="input-group-btn" if.bind="isInSearchMode">
+                <button type="button" class="btn btn-danger" click.delegate="cancelSearch()">Cancel search</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="card my-4" if.bind="searchOption == 'author'">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search by author" value.bind="search">
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-secondary" disabled.bind="!search"
+                  click.delegate="searchPostByAuthor(search)">Go!</button>
+              </span>
+              <span class="input-group-btn" if.bind="isInSearchMode">
+                <button type="button" class="btn btn-danger" click.delegate="cancelSearch()">Cancel search</button>
+              </span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="card my-4" if.bind="searchOption == 'author'">
-        <h5 class="card-header">Search</h5>
-        <div class="card-body">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search by author" value.bind="search">
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-secondary" disabled.bind="!search"
-                click.delegate="searchPostByAuthor(search)">Go!</button>
-            </span>
-            <span class="input-group-btn" if.bind="isInSearchMode">
-              <button type="button" class="btn btn-danger" click.delegate="cancelSearch()">Cancel search</button>
-            </span>
-          </div>
+      <div class="col-sm-8 col-sm-pull-4" if.bind="!isInSearchMode">
+        <div show.bind="posts.length < 1">
+          <h4>No posts to show.</h4>
         </div>
       </div>
       <div if.bind="isInSearchMode">
-        <div show.bind="searchResults">
-          <h4>Results for "${searchResults}":</h4>
+        <div class="col-sm-8 col-sm-pull-4">
+          <div show.bind="searchResults">
+            <h4>Results for "${searchResults}":</h4>
+          </div>
+          <h4>No posts to show.</h4>
         </div>
-        <div class="col-sm-8" if.bind="posts.length < 1">
-          No posts to show.
-        </div>
-        <div class="col-sm-8" repeat.for="post of queriedPosts">
-          <compose view="../postView/postView.html"></compose>
+        <div class="col-sm-8 col-sm-pull-4">
+          <div repeat.for="post of queriedPosts">
+            <compose view="../postView/postView.html"></compose>
+          </div>
         </div>
       </div>
-      <div if.bind="!isInSearchMode" class="col-sm-8" repeat.for="post of posts">
-        <compose view="../postView/postView.html"></compose>
+      <div class="col-sm-8 col-sm-pull-4">
+        <div if.bind="!isInSearchMode" repeat.for="post of posts">
+          <compose view="../postView/postView.html"></compose>
+        </div>
       </div>
     </div>
   </div>

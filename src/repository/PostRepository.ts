@@ -43,7 +43,7 @@ export class PostRepository{
     });
   }
 
-  savePostEditing(postId, title, body, visibility){
+  savePostChanges(postId, title, body, visibility){
     let index = this.posts.findIndex(post => post.postId == postId);
     this.posts[index].title = title;
     this.posts[index].body = body;

@@ -4,7 +4,6 @@ import { PostVisibility, Post } from './../models/Post';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { inject } from "aurelia-framework";
 import { ValidationRules, ValidationControllerFactory, ValidationController } from 'aurelia-validation';
-import { threadId } from 'worker_threads';
 
 @inject(ValidationControllerFactory, EventAggregator, PostRepository, PropagateUser)
 export class AddPostModal {
@@ -26,8 +25,8 @@ export class AddPostModal {
     this.pu = pu;
   }
 
-  addPost(title: string, body: string, visibility: PostVisibility) {
-    let post = new Post(title, body, this.pu.getCurrentUser().username, visibility);
+  addPost() {
+    let post = new Post(this.title, this.body, this.pu.getCurrentUser().username, this.visibility);
     this.pr.addPost(post);
     this.pu.getCurrentUser().addPost(post);
     this.title = "";

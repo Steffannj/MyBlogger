@@ -14,12 +14,14 @@ export class AccountRepository{
       this.accounts.push(new Account(username, password, accountType));
     }
 
-    getAccount(username){
+    getAccount(username): Account{
+      let acc;
       this.accounts.forEach((account) => {
         if(account.username == username){
-          return account;
+          acc = account;
         }
       });
+      return acc;
     }
 
     getAllAccounts(){

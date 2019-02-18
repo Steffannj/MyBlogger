@@ -1,6 +1,6 @@
 import { Account } from './models/Account';
 import { PLATFORM } from 'aurelia-pal';
-import {  RouterConfiguration, Router } from 'aurelia-router';
+import { RouterConfiguration, Router } from 'aurelia-router';
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
@@ -16,7 +16,7 @@ export class App {
     this.ea.subscribe("account", acc => this.currentUser = acc);
   }
 
-   configureRouter(config: RouterConfiguration) {
+  configureRouter(config: RouterConfiguration) {
     config.title = 'MyBlogger';
     config.options.pushState = true;
     config.map([
@@ -24,6 +24,7 @@ export class App {
       { route: 'signup', name: 'signup', moduleId: PLATFORM.moduleName('loginAndRegister/signup'), title: 'Sign Up' },
       { route: 'userprofile', name: 'userprofile', moduleId: PLATFORM.moduleName('userProfile/userprofile'), title: 'Your Profile' },
       { route: 'adminpage', name: 'adminpage', moduleId: PLATFORM.moduleName('admin/adminPage'), title: 'Your Profile' },
+      { route: 'adminhome', name: 'adminhome', moduleId: PLATFORM.moduleName('admin/adminHome'), title: 'Admin Home' },
       { route: 'home', name: 'home', moduleId: PLATFORM.moduleName('home/home'), title: 'Home' }
     ]);
   }

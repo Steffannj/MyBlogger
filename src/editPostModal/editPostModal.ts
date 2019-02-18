@@ -31,7 +31,7 @@ export class EditPostModal{
   }
 
   editPost(postId){
-    this.pr.savePostEditing(postId, this.title, this.body, this.visibility);
+    this.pr.savePostChanges(postId, this.title, this.body, this.visibility);
   }
 
 }

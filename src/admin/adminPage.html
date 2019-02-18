@@ -1,15 +1,89 @@
 <template>
-  <h3>List of all accounts:</h3>
-  <ul>
-    <li repeat.for="account of listOfAccounts">
-      <p> ID:${account.accountId} TYPE: ${account.accountType.toString()} USERNAME: ${account.username}
-        PASSWORD: ${account.password} POSTS:
-    <ul repeat.for="post of account.blogPosts">
-      <button>showPosts</button>
-      <li><compose view="../postView/postView.html"></compose></li>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <h4>Select Account:</h4> <br>
+          <select class="form-control" value.bind="selectedAccount">
+            <option model.bind="null">Choose...</option>
+            <option repeat.for="account of listOfAccounts" model.bind="account">
+              ${account.accountId} - ${account.username}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="row panel panel-success" style="margin-top:2%;">
+          <div class="panel-heading lead">
+            <div class="row">
+              <div class="col-lg-8 col-md-8 text-center"> View Account Details</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="row">
+                <div class="col-lg-3 col-md-3">
+                </div>
+                <div class="col-lg-9 col-md-9">
+                  <div class="tab-content">
+                    <div class="table-responsive panel">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td class="text-success">ID</td>
+                            <td>${selectedAccount.accountId}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-success">Account Type</td>
+                            <td>${selectedAccount.accountType}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-success">Username</td>
+                            <td>${selectedAccount.username}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-success">Password</td>
+                            <td>${selectedAccount.password}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-success">Number Of Posts</td>
+                            <td>${selectedAccount.blogPosts.length}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
-    </li>
-    </p>
-    </li>
-  </ul>
+                  <div class="table-responsive panel" show.bind="selectedAccount.accountType == 'User'">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <td class="text-center">
+                            <button class="btn btn-danger btn-block"
+                              click.delegate="deleteAccount(selectedAccount.accountId)">Delete Account</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div repeat.for="post of selectedAccount.blogPosts">
+          <div class="col-sm-4">
+            <compose view="../postView/postView.html"></compose>
+            <compose view-model="../editPostModal/editPostModal"></compose>
+            <button class="btn btn-danger" click.delegate="deletePost(post)">Delete Post</button>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#${post.postId}"
+              click.delegate="publishPost(post)">Edit Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

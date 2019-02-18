@@ -34,8 +34,8 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" click.delegate="addPost(title, body, visibility)" data-dismiss="modal"
-            disabled.bind="vc.errors.length > 0 || !title || !body">Save changes</button>
+          <button type="button" class="btn btn-primary" click.delegate="addPost()" data-dismiss="modal"
+            disabled.bind="vc.errors.length > 0 || !title || !body">Add post</button>
         </div>
       </div>
     </div>
