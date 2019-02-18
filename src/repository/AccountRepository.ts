@@ -12,11 +12,13 @@ export class AccountRepository {
 
   constructor(cr: CheckRegister) {
     this.cr = cr;
-  } 
+  }
 
   addAccount(username, password, accountType) {
-    if(!this.cr.isUsernameAvailable(username))
+    if (!this.cr.isUsernameAvailable(username))
       this.accounts.push(new Account(username, password, accountType));
+    else
+      return "Username taken";
   }
 
   getAccount(username): Account {

@@ -12,16 +12,19 @@ export class AddAccountModal{
   vc: ValidationController;
   vcf: ValidationControllerFactory;
   ar: AccountRepository;
-  
+  err = "";
+
   constructor(vcf: ValidationControllerFactory, ar: AccountRepository){
-    this.vcf = vcf;
     this.vc = vcf.createForCurrentScope();
     this.ar = ar;
   }
 
   addAccount(){
-      this.ar.addAccount(this.username, this.password, this.accountType);
-  }
+      let res = this.ar.addAccount(this.username, this.password, this.accountType);
+      if(res){
+        this.err = res;
+      }
+    }
 }
 ValidationRules
   .ensure("username")

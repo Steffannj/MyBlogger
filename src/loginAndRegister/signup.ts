@@ -25,16 +25,19 @@ export class Signup {
   }
 
   signup() {
-        this.accountRepository.addAccount(this.username, this.password, AccountType.User);
-        this.router.navigateToRoute("login");
+    let res = this.accountRepository.addAccount(this.username, this.password, AccountType.User);
+    if (res) {
+      this.error = res;
+    }
+    this.router.navigateToRoute("login");
   }
 }
 
 ValidationRules
-.ensure("username")
-.minLength(5)
-.maxLength(50)
-.ensure("password")
-.minLength(8)
-.maxLength(50)
-.on(Signup);
+  .ensure("username")
+  .minLength(5)
+  .maxLength(50)
+  .ensure("password")
+  .minLength(8)
+  .maxLength(50)
+  .on(Signup);
