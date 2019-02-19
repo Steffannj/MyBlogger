@@ -1,47 +1,53 @@
 <template>
-  <form submit.delegate="signup()">
-    <div class="blog-header">
-      <h2 class="text-center">Sign Up</h2>
-    </div>
-
-    <div class="form-group">
-      <input type="text" class="form-control" value.bind="username & validate" placeholder="Username"
-        required="required">
-    </div>
+  <div class="container">
     <div class="row">
-      <div class="col-xs-6 col-sm-6 col-md-6">
-        <div class="form-group">
-          <input type="password" class="form-control input-sm" value.bind="password & validate" placeholder="Password"
-            required="required">
-        </div>
+      <div class="col-sm-6 col-sm-offset-3">
+        <form submit.delegate="signup()">
+          <div>
+            <h2 class="text-center">Sign Up</h2>
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" value.bind="username & validate" placeholder="Username"
+              required="required">
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="password" class="form-control input-sm" value.bind="password & validate"
+                  placeholder="Password" required="required">
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="password" class="form-control input-sm" value.bind="repeatedPassword & validate"
+                  placeholder="Confirm Password" required="required">
+              </div>
+            </div>
+          </div>
+
+          <ul if.bind="vc.errors.length > 0 ">
+            <li repeat.for="error of vc.errors">
+              ${error}
+            </li>
+          </ul>
+
+          <ul>
+            <li show.bind="error">
+              ${error}
+            </li>
+          </ul>
+
+          <div class="form-group">
+            <button type="submit" disabled.bind="password != repeatedPassword || vc.errors.length > 0"
+              class="btn btn-primary btn-block">Register</button>
+          </div>
+
+          <div class="text-center">
+            <a route-href="route: login">I already have an account</a>
+          </div>
+        </form>
       </div>
-      <div class="col-xs-6 col-sm-6 col-md-6">
-        <div class="form-group">
-          <input type="password" class="form-control input-sm" value.bind="repeatedPassword & validate"
-            placeholder="Confirm Password" required="required">
-        </div>
-      </div>
     </div>
-
-    <ul if.bind="vc.errors.length > 0 ">
-      <li repeat.for="error of vc.errors">
-        ${error}
-      </li>
-    </ul>
-
-    <ul>
-      <li show.bind="error">
-        ${error}
-      </li>
-    </ul>
-
-    <div class="form-group">
-      <button type="submit" disabled.bind="password != repeatedPassword || vc.errors.length > 0"
-        class="btn btn-primary btn-block">Register</button>
-    </div>
-
-    <div class="text-center">
-      <a route-href="route: login">I already have an account</a>
-    </div>
-  </form>
+  </div>
 </template>
