@@ -31,13 +31,13 @@
               ${error}
             </li>
           </ul>
-          <div show.bind="err">
-            ${err}
+          <div show.bind="error">
+            ${error}
           </div>
   
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" click.delegate="addAccount()" data-dismiss="modal"
+            <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" click.delegate="addAccount()"
               disabled.bind="vc.errors.length > 0 || !username || !password">Add account</button>
           </div>
         </div>

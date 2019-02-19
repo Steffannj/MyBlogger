@@ -45,6 +45,10 @@ export class AdminPage {
     this.ea.publish("post", post);
   }
 
+  editAccount(){
+    this.ea.publish("editAccount", this.selectedAccount);
+  }
+
   deletePost(post: Post) {
     let account = this.accountRepository.getAccount(post.author);
     account.removePost(post.postId);
