@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-=======
 import { CheckRegister } from './../authChecks/checkRegister';
->>>>>>> d8401ae
 import { AccountRepository } from './../repository/AccountRepository';
 import { ValidationRules, ValidationController, ValidationControllerFactory } from 'aurelia-validation';
 import { AccountType } from './../models/Account';
 import { inject } from 'aurelia-framework';
-<<<<<<< HEAD
-
-@inject(ValidationControllerFactory, AccountRepository)
-=======
 import * as $ from 'jquery';
 
 @inject(ValidationControllerFactory, AccountRepository, CheckRegister)
->>>>>>> d8401ae
 export class AddAccountModal{
   username:string;
   password: string;
@@ -22,23 +14,8 @@ export class AddAccountModal{
   vc: ValidationController;
   vcf: ValidationControllerFactory;
   ar: AccountRepository;
-<<<<<<< HEAD
-  err = "";
-
-  constructor(vcf: ValidationControllerFactory, ar: AccountRepository){
-    this.vc = vcf.createForCurrentScope();
-    this.ar = ar;
-  }
-
-  addAccount(){
-      let res = this.ar.addAccount(this.username, this.password, this.accountType);
-      if(res){
-        this.err = res;
-      }
-    }
-=======
   cr: CheckRegister;
-  error = "";
+  error: string;
 
   constructor(vcf: ValidationControllerFactory, ar: AccountRepository, cr: CheckRegister){
     this.vc = vcf.createForCurrentScope();
@@ -47,8 +24,8 @@ export class AddAccountModal{
   }
 
   addAccount(){
-    this.error = "";
     try {
+      this.error = "";
       if (this.cr.isUsernameAvailable(this.username))
         this.ar.addAccount(this.username, this.password, AccountType.User);
         $('#close-btn').click(); 
@@ -57,7 +34,6 @@ export class AddAccountModal{
     }
   }
 
->>>>>>> d8401ae
 }
 ValidationRules
   .ensure("username")
