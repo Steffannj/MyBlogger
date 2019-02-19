@@ -43,5 +43,11 @@ export class AccountRepository {
     });
   }
 
+    editAccount(accountId: number, username: string, password: string, accountType: AccountType){
+      let index = this.accounts.findIndex(account => account.accountId == accountId);
+      this.accounts[index].username = username;
+      this.accounts[index].password = password;
+      this.accounts[index].accountType = accountType;
+    }
 }
 

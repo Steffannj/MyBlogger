@@ -51,6 +51,7 @@
             </div>
           </div>
 
+<<<<<<< HEAD
           <div class="table-responsive panel" show.bind="selectedAccount.accountType == 'User'">
             <table class="table">
               <tbody>
@@ -60,6 +61,30 @@
                       click.delegate="deleteAccount(selectedAccount.accountId)">Delete Account</button>
                   </td>
                 </tr>
+=======
+          <div class="table-responsive panel" show.bind="selectedAccount.accountId">
+            <table class="table">
+              <tbody>
+                <div class="row">
+                  <tr>
+                    <div class="col-6">
+                      <td class="text-center">
+                        <button class="btn btn-danger btn-block"
+                          click.delegate="deleteAccount(selectedAccount.accountId)">Delete Account</button>
+                      </td>
+                    </div>
+                    <div class="col-6">
+                      <compose view-model="../EditAccountModal/EditAccountModal"></compose>
+                      <td class="text-center">
+                        <button class="btn btn-warning btn-block" data-toggle="modal" data-target="#editAccount"
+                          click.delegate="editAccount()">Edit
+                          Account</button>
+                      </td>
+                    </div>
+                  </tr>
+                </div>
+
+>>>>>>> d8401ae
               </tbody>
             </table>
           </div>
