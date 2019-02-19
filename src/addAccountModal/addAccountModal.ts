@@ -24,6 +24,7 @@ export class AddAccountModal{
   }
 
   addAccount(){
+    this.error = "";
     try {
       if (this.cr.isUsernameAvailable(this.username))
         this.ar.addAccount(this.username, this.password, AccountType.User);
