@@ -51,12 +51,12 @@
             </div>
           </div>
 
-          <div class="table-responsive panel" show.bind="selectedAccount.accountId">
+          <div class="table-responsive panel" show.bind="selectedAccount.accountId && selectedAccount != currentUser">
             <table class="table">
               <tbody>
                 <div class="row">
                   <tr>
-                    <div class="col-6">
+                    <div class="col-6">  
                       <td class="text-center">
                         <button class="btn btn-danger btn-block"
                           click.delegate="deleteAccount(selectedAccount.accountId)">Delete Account</button>

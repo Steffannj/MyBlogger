@@ -37,21 +37,26 @@ export class AdminPage {
   }
 
   deleteAccount(accountId: number) {
-    this.postRepository.deletePostsByAuthor(this.selectedAccount.username);
-    this.accountRepository.deleteAccount(accountId);
+    if (window.confirm("Are you sure you want to delete account?")) {
+      this.postRepository.deletePostsByAuthor(this.selectedAccount.username);
+      this.accountRepository.deleteAccount(accountId);
+    }
   }
 
   publishPost(post: Post) {
     this.ea.publish("post", post);
   }
 
-  editAccount(){
+  editAccount() {
     this.ea.publish("editAccount", this.selectedAccount);
   }
 
   deletePost(post: Post) {
-    let account = this.accountRepository.getAccount(post.author);
-    account.removePost(post.postId);
-    this.postRepository.deletePost(post.postId);
+    if (window.confirm("Are you sure you want to delete post?")) {
+      let account = this.accountRepository.getAccount(post.author);
+      account.removePost(post.postId);
+      this.postRepository.deletePost(post.postId);
+    }
   }
+
 }

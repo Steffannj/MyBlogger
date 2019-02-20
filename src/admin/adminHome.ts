@@ -42,15 +42,17 @@ export class AdminHome {
   }
 
   deletePost(post: Post) {
-    let account = this.ar.getAccount(post.author);
-    account.removePost(post.postId);
-    this.pr.deletePost(post.postId);
+    if (window.confirm("Are you sure you want to delete post?")) {
+      let account = this.ar.getAccount(post.author);
+      account.removePost(post.postId);
+      this.pr.deletePost(post.postId);
+    }
   }
 
   publishPost(post: Post) {
     this.ea.publish("post", post);
   }
-  
+
   searchPostByTitle(search: string) {
     this.isInSearchMode = true;
     this.queriedPosts = this.pr.getPosts(this.currentUser.accountType).filter(post =>

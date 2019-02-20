@@ -33,8 +33,10 @@ export class UserProfile {
   }
 
   deletePost(post: Post) {
-    this.currentUser.removePost(post.postId);
-    this.postRepository.deletePost(post.postId);
+    if (window.confirm("Are you sure you want to delete post?")) {
+      this.currentUser.removePost(post.postId);
+      this.postRepository.deletePost(post.postId);
+    }
   }
 
   searchPost(search) {
